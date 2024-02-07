@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import Table from '../node_modules/react-bootstrap/esm/Table';
+import mioComponente from './mioComponente';
 
 function App() {
     const [forecasts, setForecasts] = useState();
-
+    //className="table table-striped" aria-labelledby="tabelLabel"
     useEffect(() => {
         populateWeatherData();
     }, []);
 
     const contents = forecasts === undefined
         ? <p><em>Caricamento Dati Clienti....</em></p>
-        : <table className="table table-striped" aria-labelledby="tabelLabel">
+        : <Table striped bordered hover >
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -29,13 +31,17 @@ function App() {
                     </tr>
                 )}
             </tbody>
-        </table>;
+        </Table>;
 
     return (
+
         <div>
+            {mioComponente("Genny", "48")}
             <h1 id="tabelLabel">Cliente Tricostyle</h1>
             <p>Esempio caricamento dati dal server.</p>
             {contents}
+
+            {mioComponente("Marco", "50")}
         </div>
     );
     
