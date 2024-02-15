@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Table from '../node_modules/react-bootstrap/esm/Table';
-//import mioComponente from './mioComponente';
 import Button from 'react-bootstrap/Button';
-
+import DropDownButtonBar from './components/DropDownButtonBar';
 function App() {
+    
     const [forecasts, setForecasts] = useState();
     const [isLoading, setLoading] = useState(false);
     //className="table table-striped" aria-labelledby="tabelLabel"
     useEffect(() => {
-       // populateWeatherData();
         if (isLoading) {
             populateWeatherData().then(() => {
                 setLoading(false);
@@ -18,7 +17,7 @@ function App() {
     }, [isLoading]);
 
     const contents = forecasts === undefined
-        ? <p><em>Cliccare il bottone</em></p>
+        ? <p></p>
         : <Table striped bordered hover >
             <thead>
                 <tr>
@@ -42,8 +41,9 @@ function App() {
     const handleClick = () => setLoading(true);
 
     return (
-
+       
         <div>
+            {DropDownButtonBar()}
             <h1 id="tabelLabel">Cliente Tricostyle</h1>
             <Button
                 variant="primary"
@@ -53,8 +53,6 @@ function App() {
                 {isLoading ? 'Caricamento…' : 'Click Per Caricare'}
             </Button>
             {contents}
-
-           
         </div>
     );
     
