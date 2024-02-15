@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Table from '../node_modules/react-bootstrap/esm/Table';
-import mioComponente from './mioComponente';
+//import mioComponente from './mioComponente';
+import Button from 'react-bootstrap/Button';
 
 function App() {
     const [forecasts, setForecasts] = useState();
+    const [isLoading, setLoading] = useState(false);
     //className="table table-striped" aria-labelledby="tabelLabel"
     useEffect(() => {
-        populateWeatherData();
-    }, []);
+       // populateWeatherData();
+        if (isLoading) {
+            populateWeatherData().then(() => {
+                setLoading(false);
+            });
+        }
+    }, [isLoading]);
 
     const contents = forecasts === undefined
-        ? <p><em>Caricamento Dati Clienti....</em></p>
+        ? <p><em>Cliccare il bottone</em></p>
         : <Table striped bordered hover >
             <thead>
                 <tr>
@@ -32,16 +39,22 @@ function App() {
                 )}
             </tbody>
         </Table>;
+    const handleClick = () => setLoading(true);
 
     return (
 
         <div>
-            {mioComponente("Genny", "48")}
             <h1 id="tabelLabel">Cliente Tricostyle</h1>
-            <p>Esempio caricamento dati dal server.</p>
+            <Button
+                variant="primary"
+                disabled={isLoading}
+                onClick={!isLoading ? handleClick : null}
+            >
+                {isLoading ? 'Caricamento…' : 'Click Per Caricare'}
+            </Button>
             {contents}
 
-            {mioComponente("Marco", "50")}
+           
         </div>
     );
     
